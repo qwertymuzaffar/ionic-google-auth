@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="users && users.length; else noData">
+    <ion-list>
+      <ion-item *ngFor="let user of users">
+        <ion-label>{{user.displayName}}</ion-label>
+        <ion-checkbox slot="end"
+                      [(ngModel)]="user.isChecked"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-textarea [(ngModel)]="text" placeholder="Enter text"></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <ion-button (click)="sendMessage()"
+                expand="block">Send</ion-button>
+
+    <ion-button type="submit"
+                (click)="authService.signOut()"
+                color="danger"
+                expand="block">Logout</ion-button>
+  </ng-container>
+
+  <ng-template #noData>
+    <div class="spinner-group">
+      <ion-spinner class="spinner-group__spinner" name="lines"></ion-spinner>
+    </div>
+  </ng-template>
+</ion-content>
